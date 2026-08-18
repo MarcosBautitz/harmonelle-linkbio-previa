@@ -457,8 +457,9 @@ body::after{
   .js .revela,
   .js .revela.visivel{opacity:1;transform:none;transition:none}
   .js .identidade-fundo img{animation:none;opacity:.74}
-  /* Quem pediu menos movimento ve o retrato parado. O script pausa o video,
-     e o navegador volta a mostrar o poster. */
+  /* O video do avatar NAO e pausado aqui: o Marcos pediu autoplay sempre,
+     em 18/08/2026. O que a preferencia continua desligando e a revelacao ao
+     rolar e a aproximacao do fundo, logo acima. */
   html{scroll-behavior:auto}
   .barra{transition:none}
   .cta:active,.lista a:active{transform:none}
@@ -835,17 +836,58 @@ html{-webkit-text-size-adjust:100%}
   var estatico = /[?&]static=1/.test(location.search); /* desliga para captura */
 
   /* -----------------------------------------------------------------------
-     0. O video do avatar.
+     0. O video do avatar TEM DE TOCAR SEMPRE. Decisao do Marcos, 18/08/2026.
 
-     Ele nasce com `autoplay muted loop playsinline` no HTML, e nao ligado
-     por script: assim ele comeca a tocar sem esperar o JavaScript, que num
-     WebView lento chega depois. O script so intervem em um caso, o de quem
-     pediu menos movimento, e ai pausa e volta ao poster, que e o retrato
-     parado.
+     Ele ja nasce com `autoplay muted loop playsinline` no HTML, e isso
+     resolve o caso comum: medido no Chrome, com a politica mais restritiva
+     que existe, `--autoplay-policy=document-user-activation-required`, ele
+     toca. O que este bloco cobre sao os casos em que o atributo sozinho nao
+     basta, e eles sao reais:
+
+     1. **iPhone em Modo de Baixo Consumo.** O iOS bloqueia autoplay ate de
+        video mudo quando a bateria esta em economia. E o caso mais provavel
+        de acontecer com a paciente, que chega a noite, com o celular no fim
+        do dia.
+     2. Safari com "Reproducao automatica" definida como Nunca para o site.
+     3. WebView que engasga no primeiro `canplay`.
+
+     A saida e sempre a mesma: pedir `play()` de novo. Sem gesto do usuario
+     ele pode ser recusado, e por isso o ultimo recurso e o primeiro toque,
+     clique ou rolagem em QUALQUER lugar da pagina, que conta como gesto e
+     libera. Depois de liberar, os ouvintes se removem.
+
+     `prefers-reduced-motion` NAO pausa mais o video: ele pediu autoplay
+     sempre. O que continua respeitando a preferencia e a revelacao ao rolar
+     e a aproximacao do fundo, no bloco 1 e no CSS.
      ----------------------------------------------------------------------- */
-  if (reduz) {
-    var av = document.getElementById('avatar-video');
-    if (av) { av.autoplay = false; av.removeAttribute('autoplay'); av.pause(); av.currentTime = 0; }
+  var av = document.getElementById('avatar-video');
+  if (av) {
+    av.muted = true;          /* redundante com o atributo de proposito: ha
+                                 navegador que so olha a PROPRIEDADE, e sem
+                                 mudo o autoplay e recusado em todos */
+    var tocar = function () {
+      var p = av.play();
+      if (p && p.catch) { p.catch(function () {}); }   /* recusa nao e erro */
+    };
+    tocar();
+    av.addEventListener('canplay', tocar);
+    av.addEventListener('loadeddata', tocar);
+
+    var eventos = ['touchstart', 'pointerdown', 'click', 'scroll'];
+    var liberar = function () {
+      tocar();
+      for (var k = 0; k < eventos.length; k++) {
+        window.removeEventListener(eventos[k], liberar);
+      }
+    };
+    for (var j = 0; j < eventos.length; j++) {
+      window.addEventListener(eventos[j], liberar, { passive: true });
+    }
+
+    /* Se a pessoa sai da aba e volta, o iOS costuma deixar o video parado. */
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden) tocar();
+    });
   }
 
   /* -----------------------------------------------------------------------
