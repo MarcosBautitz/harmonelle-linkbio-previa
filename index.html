@@ -370,7 +370,8 @@ h1 em,h2 em,h3 em{font-style:italic;font-weight:340}
    ========================================================================= */
 .barra{
   position:fixed;left:0;right:0;bottom:0;z-index:50;
-  padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+  display:flex;gap:10px;align-items:center;
+  padding:11px 14px calc(11px + env(safe-area-inset-bottom));
   background:rgba(246,241,233,.94);
   -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
   border-top:1px solid var(--linha);
@@ -388,10 +389,45 @@ h1 em,h2 em,h3 em{font-style:italic;font-weight:340}
   visibility:hidden;transform:translateY(115%);
   transition:transform var(--t-inter) var(--ease-saida), visibility 0s linear var(--t-inter)
 }
+/* Os dois botoes sao copia do site, `v3.parte3.css` linhas 196-212, com os
+   componentes `.btn` e `.btn-linha` de `v3.parte2.css` linhas 114-165.
+   Pedido do Marcos em 19/08/2026: "eu quero igual esse, que e a versao
+   mobile do site". Copiados: a proporcao 60/40, a altura de 50px, o corpo
+   de 14px com `letter-spacing:.06em`, o raio de 2px, o preenchimento
+   `--ink` do primario e o contorno `--contorno` do secundario.
+   NAO copiados, e de proposito: o `::before` que sobe no hover do `.btn` e
+   a moldura interna do `.btn-linha`. Os dois sao gestos de ponteiro, e esta
+   barra so existe em toque. */
 .barra a{
-  display:block;background:var(--cafe);color:var(--claro-escuro);
-  text-align:center;font-weight:600;font-size:16px;border-radius:var(--r1);padding:15px
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  flex:1;min-height:50px;padding:13px 14px;
+  font-family:var(--sans);font-size:14px;font-weight:500;letter-spacing:.06em;
+  border-radius:2px
 }
+.barra a svg{width:17px;height:17px;fill:currentColor;flex-shrink:0}
+.barra-cheio{background:var(--ink);color:var(--branco);border:1px solid var(--ink)}
+.barra-cheio:active{filter:brightness(1.35)}
+/* O secundario nao cresce: `flex:0 0 40%` e o que mantem "Agendar" com mais
+   peso visual que "Como chegar". Sem isso os dois ficam iguais e a barra
+   passa a fazer duas perguntas em vez de uma. */
+/* ARMADILHA, e e a mesma familia da que ja quebrou esta barra uma vez: o
+   seletor precisa ser `.barra a.barra-linha` e nao `.barra-linha`. A regra
+   `.barra a` acima tem especificidade 0,1,1, contra 0,1,0 de uma classe
+   sozinha, entao o `flex:1` dela vencia e os dois botoes saiam com a MESMA
+   largura. Medido antes da correcao: 176px e 176px em tela de 390. */
+.barra a.barra-linha{
+  flex:0 0 40%;background:transparent;color:var(--ink);
+  border:1px solid var(--contorno)
+}
+.barra a.barra-linha svg{width:16px;height:16px}
+/* Tela estreita. Copiado do site, `v3.parte3.css` linha 318, e pelo mesmo
+   motivo que existe la: em 390px o rotulo "Como chegar" quebra em duas
+   linhas dentro de 40%, e o botao cresce para 73px enquanto o vizinho fica
+   em 50px. Medido antes desta regra. */
+@media (max-width:480px){
+  .barra a.barra-linha{flex:0 0 42%;padding:13px 10px;font-size:13px}
+}
+.barra-linha:active{background-color:rgba(110,79,51,.08)}
 
 /* =========================================================================
    EFEITOS
@@ -801,7 +837,12 @@ html{-webkit-text-size-adjust:100%}
 </main>
 
 <div class="barra" id="barra">
-  <a href="https://wa.me/5547997546362?text=Ol%C3%A1%21%20Vim%20pelo%20link%20da%20bio%20e%20quero%20agendar%20minha%20avalia%C3%A7%C3%A3o." rel="noopener">Agendar minha avaliação</a>
+  <a class="barra-cheio" href="https://wa.me/5547997546362?text=Ol%C3%A1%21%20Vim%20pelo%20link%20da%20bio%20e%20quero%20agendar%20minha%20avalia%C3%A7%C3%A3o." rel="noopener">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.4 14.1c-.2.7-1.3 1.3-1.9 1.4-.5.1-1.1.1-1.8-.1a16 16 0 0 1-1.6-.6c-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.9s.7-2 .9-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1.1 2.2 1.4 2.5 1.5.3.1.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3.1.2.1.7-.1 1.3z"/></svg>Agendar avaliação
+  </a>
+  <a class="barra-linha" href="https://maps.app.goo.gl/Hj2r9JXWSRMSt7P18" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>Como chegar
+  </a>
 </div>
 
 <!-- ==================== PAINEL DO VIDEO ==================== -->
