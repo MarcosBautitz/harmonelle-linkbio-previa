@@ -5,8 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Harmonelle | Dra. Manu Maia, Biomédica Esteta em Blumenau</title>
 <meta name="description" content="Harmonização facial e corporal em Blumenau, com a Dra. Manu Maia, Biomédica Esteta. Agende sua avaliação pelo WhatsApp.">
-<meta name="theme-color" content="#F6F1E9">
-<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#FEF7E3">
+<!-- Previa para aprovacao da cliente. Nao pode ser indexada. Esta meta existe
+     apenas nesta copia publicada, e nao no fonte do produto. -->
+<meta name="robots" content="noindex, nofollow">
 <link rel="canonical" href="https://harmonelle.com.br/linkbio">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Clínica Harmonelle">
@@ -28,11 +30,16 @@
      sem brilho de foil, sem glow colorido, sem gradiente animado.
 
    O mockup v1 quebrava essa regra em tres lugares, e os tres sairam:
-     1. o token --gold:#B08A5A, usado em rotulo e estrela;
+     1. um token de dourado, usado em rotulo e estrela;
      2. os tres thumbs de procedimento, que eram gradiente marrom com uma
         letra dentro, no lugar da foto real que existe no acervo;
-     3. a sombra colorida do CTA, `0 14px 28px -12px rgba(140,91,63,.55)`,
-        que e brilho de foil com outro nome.
+     3. a sombra colorida do CTA, que e brilho de foil com outro nome.
+
+   ATUALIZACAO de 19/08/2026: o dourado VOLTOU, por decisao do Marcos, agora
+   como o token --ouro e cercado de regra. O que continua valendo do veto
+   acima e o resto: nada de gradiente entre cores da paleta, nada de sombra
+   colorida, nada de brilho ou reflexo. O dourado entra so como filete de
+   1px, moldura, icone e selo, e no maximo uma vez por dobra da tela.
 
    FONTES E CORES CONTINUAM PROVISORIAS, como no site. Fraunces substitui a
    Megafield e Inter substitui a Helvena. Enquanto for assim, o que a cliente
@@ -40,20 +47,46 @@
    ========================================================================= */
 
 :root{
-  /* ---- cor: os mesmos hex do site, e nao aproximacoes ---- */
-  --areia:#F6F1E9; --creme:#EFE7DA; --branco:#FDFBF7;
-  --ink:#241E17;              /* 15,96:1 sobre o branco */
-  --ink2:#5C5246;             /* 7,39:1  corpo de texto */
-  --cafe:#6E4F33;             /* 6,60:1  rotulos, e a cor de acao da pagina */
-  --caramelo:#A97B4F;         /* 3,61:1. So texto grande, filete e anel de foco */
-  --linha:#E3D8C8;            /* divisoria decorativa apenas */
-  --contorno:rgba(36,30,23,.55);
-  --claro-escuro:#F2EBDF;
-  --claro-escuro2:#C9BEAC;   /* calibrado para fundo --ink */
-  --claro-cafe:#DED4C3;      /* 5,06:1 sobre --cafe. Subtitulo do CTA */
+  /* ---- cor: a PALETA OFICIAL da Harmonelle, do manual de marca V1.0 e do
+         PDF Paleta de Cores. Nao ha aproximacao aqui, e nao ha cor inventada.
 
-  /* O mockup usava --accent:#8C5B3F, cor que nao existe no site. Substituida
-     por --cafe:#6E4F33, que ja e a cor de acao la e passa AA em 14px. */
+         Cinco cores oficiais:
+           Branco Antigo   #FEF7E3
+           Bege Rosado     #E6BCA3
+           Petroleo Escuro #374047
+           Verde Oliva     #81865D
+           Terracota Claro #CE9F83
+
+         O FATO QUE GOVERNA TUDO ABAIXO, e ele foi medido: das cinco, so o
+         Petroleo Escuro carrega texto. Verde Oliva da 3,57:1 e so serve a
+         texto grande; Terracota da 2,20:1 e Bege Rosado 1,62:1, e os dois
+         reprovam em qualquer texto. E uma paleta de superficie e de acento,
+         nao de texto. Por isso tres tokens sao DERIVADOS, cada um na matiz
+         da cor de marca que o originou. ---- */
+  --branco:#FEF7E3;           /* Branco Antigo puro. Fundo da pagina */
+  --areia:#FCF1DD;            /* derivado: Branco Antigo + 10% Bege Rosado */
+  --creme:#F7E5D0;            /* derivado: Branco Antigo + 30% Bege Rosado */
+  --ink:#374047;              /* Petroleo puro. 9,88:1 no branco, 9,45:1 na areia,
+                                 8,59:1 no creme. E a cor de acao da pagina */
+  --ink2:#586772;             /* derivado do Petroleo. 5,46:1 corpo de texto */
+  --cafe:#646748;             /* derivado do Verde Oliva. 5,49:1 rotulos e links */
+  --caramelo:#81865D;         /* Verde Oliva puro. 3,57:1. So texto 18px+, filete
+                                 de 1px e anel de foco, e so sobre fundo claro */
+  --ouro:#A88347;             /* FORA da paleta oficial, por decisao do Marcos em
+                                 19/08/2026. 3,27:1 no claro e 3,02:1 no petroleo,
+                                 e o unico dourado que passa de 3:1 nos DOIS
+                                 fundos. So filete de 1px, moldura, icone e selo.
+                                 Nunca texto, nunca preenchimento, nunca gradiente,
+                                 e no maximo uma vez por dobra da tela. */
+  --linha:#E6BCA3;            /* Bege Rosado puro. 1,62:1. Divisoria decorativa */
+  --contorno:rgba(55,64,71,.62); /* Petroleo a 62%. 3,45:1. Borda que e a unica
+                                 indicacao de que o elemento e clicavel */
+  --claro-escuro:#FEF7E3;     /* Branco Antigo. 9,88:1 sobre o ink */
+  --claro-escuro2:#E6BCA3;    /* Bege Rosado. 6,08:1 sobre o ink */
+
+  /* O token --claro-cafe foi APAGADO. Ele existia para o subtitulo do
+     CTA quando o preenchimento era o cafe marrom. Sobre o novo preenchimento,
+     que e o Petroleo, o subtitulo usa --claro-escuro2, com 6,08:1. */
 
   --serif:"Fraunces", Georgia, serif;
   --sans:"Inter", -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
@@ -71,8 +104,11 @@
   --t-micro:160ms; --t-inter:380ms; --t-lento:820ms;
 
   /* ---- sombra: sempre tinta, nunca preto puro nem cor de marca ---- */
-  --sombra-1:0 1px 2px rgba(36,30,23,.05);
-  --sombra-2:0 18px 40px -16px rgba(36,30,23,.20);
+  /* sombra: tinta de Petroleo (55,64,71), nunca preto. O alfa subiu de ,05 e
+     ,20 para ,06 e ,24 porque o Petroleo e mais claro que a tinta antiga,
+     luminancia 0,049 contra 0,014, e a mesma opacidade pesaria menos. */
+  --sombra-1:0 1px 2px rgba(55,64,71,.06);
+  --sombra-2:0 18px 40px -16px rgba(55,64,71,.24);
 
   --largura:440px;   /* medida de leitura do one-pager */
 }
@@ -150,7 +186,14 @@ h1 em,h2 em,h3 em{font-style:italic;font-weight:340}
   position:absolute;left:-20px;right:-20px;top:0;height:340px;
   z-index:0;pointer-events:none;
   /* a mascara abre no centro e some nas bordas. Sem ela a montagem termina
-     num retangulo, e retangulo desfocado atras de rosto le como erro. */
+     num retangulo, e retangulo desfocado atras de rosto le como erro.
+
+     ATENCAO ao ler o preto abaixo: `#000` e `rgba(0,0,0,.55)` numa
+     mask-image NAO SAO COR. A mascara usa so o canal alfa, e ali preto quer
+     dizer "mostra" e transparente quer dizer "esconde". Trocar esses valores
+     por cor da paleta nao muda nada visualmente e so serve para quebrar a
+     leitura de quem vier depois. O teste de aceitacao de cor tem de excluir
+     as linhas de mask-image, senao acusa falso positivo. */
   -webkit-mask-image:radial-gradient(120% 88% at 50% 34%,#000 26%,rgba(0,0,0,.55) 54%,transparent 82%);
   mask-image:radial-gradient(120% 88% at 50% 34%,#000 26%,rgba(0,0,0,.55) 54%,transparent 82%);
 }
@@ -163,8 +206,8 @@ h1 em,h2 em,h3 em{font-style:italic;font-weight:340}
 .identidade-fundo::after{
   content:"";position:absolute;inset:0;
   background:
-    radial-gradient(58% 46% at 50% 34%, rgba(246,241,233,.80) 0%, rgba(246,241,233,.26) 58%, rgba(246,241,233,0) 100%),
-    linear-gradient(to bottom, rgba(246,241,233,.20) 0%, rgba(246,241,233,.62) 62%, var(--areia) 100%);
+    radial-gradient(58% 46% at 50% 34%, rgba(252,241,221,.80) 0%, rgba(252,241,221,.26) 58%, rgba(252,241,221,0) 100%),
+    linear-gradient(to bottom, rgba(252,241,221,.20) 0%, rgba(252,241,221,.62) 62%, var(--areia) 100%);
 }
 
 /* O :not() nao e preciosismo. Sem ele esta regra tem a MESMA especificidade
@@ -194,8 +237,8 @@ h1 em,h2 em,h3 em{font-style:italic;font-weight:340}
   width:142px;height:142px;border-radius:50%;
   margin:22px auto 2px;
   display:block;object-fit:cover;
-  border:4px solid #FFFDF9;
-  box-shadow:0 0 0 1px var(--linha), 0 0 0 9px rgba(253,251,247,.5), var(--sombra-2);
+  border:4px solid #FEF7E3;
+  box-shadow:0 0 0 1px var(--linha), 0 0 0 9px rgba(254,247,227,.5), var(--sombra-2);
   background:var(--creme);
 }
 
@@ -208,8 +251,12 @@ h1 em,h2 em,h3 em{font-style:italic;font-weight:340}
    2. CTA
    ========================================================================= */
 .cta{
-  display:block;margin-top:26px;
-  background:var(--cafe);color:var(--claro-escuro);
+  display:block;position:relative;margin-top:26px;
+  /* A cor de acao passou a ser o Petroleo, e nao mais o cafe: e o unico
+     preenchimento da paleta oficial cujo rotulo passa em AA, com 9,88:1.
+     Terracota como botao reprova nos dois sentidos, 4,49:1 com rotulo
+     petroleo e 2,20:1 com rotulo claro. */
+  background:var(--ink);color:var(--claro-escuro);
   border-radius:var(--r2);padding:19px 20px;
   font-size:17px;font-weight:600;letter-spacing:.005em;text-align:center;
   /* sombra de tinta, e nao da cor da marca. Sombra colorida e brilho de foil,
@@ -217,8 +264,53 @@ h1 em,h2 em,h3 em{font-style:italic;font-weight:340}
   box-shadow:var(--sombra-2);
   transition:transform var(--t-micro) var(--ease-curta,ease)
 }
+/* A moldura dourada, gesto de etiqueta de perfumaria: ela cria uma segunda
+   borda de respiro que isola o botao do resto da pagina. E dela que vem a
+   forca de chamada, junto com o tamanho, e nao de cor saturada: medido, o
+   Petroleo salta 9,88:1 do fundo, enquanto um botao terracota daria 2,07:1
+   e um dourado preenchido 2,96:1. */
+.cta::after{
+  content:"";position:absolute;inset:-7px;pointer-events:none;
+  border:1px solid var(--ouro);border-radius:calc(var(--r2) + 7px)
+}
+
+/* O PING, escolhido pelo Marcos em 19/08/2026 entre cinco efeitos animados.
+   Ele pediu "um efeito visual que chame a atencao, como se fosse um gif, que
+   aparece e some".
+
+   Como funciona: uma copia da moldura dourada se solta do botao e evapora
+   para fora, como onda de sonar. O botao NAO se mexe, e o que se move e
+   justamente o dourado que ele pediu, entao o efeito e o charme sao a mesma
+   coisa em vez de duas ideias disputando a mesma tela.
+
+   Tres decisoes que nao sao estetica:
+
+   1. 88% do ciclo e imobilidade absoluta. Efeito continuo vira ruido, e a
+      pessoa aprende a ignorar em dez segundos. E animacao sem pausa no
+      WebView do Instagram, que costuma estar sem aceleracao de composicao,
+      briga com a propria rolagem.
+   2. So `transform` e `opacity`, que sao as duas propriedades que o
+      compositor anima sem recalcular layout. Animar `inset` ou `width` aqui
+      custaria um reflow por quadro.
+   3. `pointer-events:none`, senao o anel come o toque no botao justamente
+      no instante em que ele esta chamando a pessoa para tocar.
+
+   A escala de 1,07 nao e chute: em 1,14 o anel passava da largura da janela
+   em tela de telefone e ACRESCENTAVA rolagem horizontal a pagina. Medido:
+   com 1,07 o documento continua com a mesma largura de antes do efeito. Se
+   mexer neste numero, meca de novo. */
+.cta::before{
+  content:"";position:absolute;inset:-7px;pointer-events:none;
+  border:1px solid var(--ouro);border-radius:calc(var(--r2) + 7px);
+  animation:ping 5s cubic-bezier(.16,1,.3,1) infinite
+}
+@keyframes ping{
+  0%,58%{transform:scale(1);opacity:0}
+  60%{transform:scale(1);opacity:.85}
+  100%{transform:scale(1.07);opacity:0}
+}
 .cta:active{transform:scale(.985)}
-.cta small{display:block;font-weight:400;font-size:12.5px;color:var(--claro-cafe);margin-top:5px;letter-spacing:.01em}
+.cta small{display:block;font-weight:400;font-size:12.5px;color:var(--claro-escuro2);margin-top:5px;letter-spacing:.01em}
 
 /* A tese da marca, no fecho da pagina.
    Serifa, corpo grande e medida curta: ela nao e paragrafo, e uma declaracao,
@@ -238,7 +330,7 @@ h1 em,h2 em,h3 em{font-style:italic;font-weight:340}
 .cartao{
   background:var(--branco);border:1px solid var(--linha);border-radius:var(--r3);
   padding:24px 22px;margin-top:18px;
-  box-shadow:0 1px 2px rgba(36,30,23,.04), 0 10px 24px -18px rgba(36,30,23,.22)
+  box-shadow:0 1px 2px rgba(55,64,71,.047), 0 10px 24px -18px rgba(55,64,71,.26)
 }
 .rotulo{
   font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--cafe);
@@ -254,7 +346,14 @@ h1 em,h2 em,h3 em{font-style:italic;font-weight:340}
   padding:15px;font-size:15px;font-weight:600;letter-spacing:.01em;
   transition:background var(--t-micro) ease
 }
-.btn-linha:active{background:rgba(110,79,51,.06)}
+/* Lavagem de toque em tinta de PETROLEO, e nao de oliva. Motivo, e vale para
+   o arquivo inteiro: retorno de toque e de hover tem de ser CLAREAMENTO ou
+   ESCURECIMENTO na mesma matiz, nunca troca de cor. No site, onde ha hover
+   de verdade, o oliva subindo sobre o Petroleo deixava o botao AMARELADO, e
+   o Marcos reprovou em 19/08/2026. Aqui o efeito era o mesmo, so que a 6% e
+   em toque, entao quase nao aparecia. Corrigido junto, para as duas pecas
+   dizerem a mesma coisa. */
+.btn-linha:active{background:rgba(55,64,71,.06)}
 
 /* O link embutido nesta linha e o unico alvo da pagina que ficava abaixo de
    44px, porque link dentro de paragrafo herda a altura da linha. */
@@ -306,10 +405,10 @@ h1 em,h2 em,h3 em{font-style:italic;font-weight:340}
    ========================================================================= */
 .escuro{
   background:var(--ink);border-color:var(--ink);color:var(--claro-escuro);
-  box-shadow:inset 0 1px 0 rgba(242,235,223,.13), 0 14px 30px -20px rgba(36,30,23,.5)
+  box-shadow:inset 0 1px 0 rgba(254,247,227,.13), 0 14px 30px -20px rgba(55,64,71,.59)
 }
 .escuro .rotulo{color:var(--claro-escuro2)}
-.escuro .rotulo::after{background:rgba(242,235,223,.22)}
+.escuro .rotulo::after{background:rgba(254,247,227,.22)}
 .escuro h2{color:var(--claro-escuro)}
 .escuro p{color:var(--claro-escuro2)}
 
@@ -331,7 +430,7 @@ h1 em,h2 em,h3 em{font-style:italic;font-weight:340}
 .rodape .linhas a{
   color:var(--cafe);font-weight:600;
   text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;
-  text-decoration-color:rgba(110,79,51,.35)
+  text-decoration-color:rgba(100,103,72,.35)
 }
 .rodape .sep{color:var(--linha);margin:0 4px}
 .rodape .mapa{
@@ -372,7 +471,7 @@ h1 em,h2 em,h3 em{font-style:italic;font-weight:340}
   position:fixed;left:0;right:0;bottom:0;z-index:50;
   display:flex;gap:10px;align-items:center;
   padding:11px 14px calc(11px + env(safe-area-inset-bottom));
-  background:rgba(246,241,233,.94);
+  background:rgba(252,241,221,.94);
   -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
   border-top:1px solid var(--linha);
   /* visibility junto com transform: sem ela a barra desligada continua
@@ -405,7 +504,12 @@ h1 em,h2 em,h3 em{font-style:italic;font-weight:340}
   border-radius:2px
 }
 .barra a svg{width:17px;height:17px;fill:currentColor;flex-shrink:0}
-.barra-cheio{background:var(--ink);color:var(--branco);border:1px solid var(--ink)}
+.barra-cheio{
+  background:var(--ink);color:var(--claro-escuro);border:1px solid var(--ink);
+  /* o filete dourado vai por dentro, e nao em volta: numa barra colada na
+     base da tela nao existe respiro externo para uma moldura */
+  box-shadow:inset 0 0 0 1px var(--claro-escuro), inset 0 0 0 2px var(--ouro)
+}
 .barra-cheio:active{filter:brightness(1.35)}
 /* O secundario nao cresce: `flex:0 0 40%` e o que mantem "Agendar" com mais
    peso visual que "Como chegar". Sem isso os dois ficam iguais e a barra
@@ -427,7 +531,7 @@ h1 em,h2 em,h3 em{font-style:italic;font-weight:340}
 @media (max-width:480px){
   .barra a.barra-linha{flex:0 0 42%;padding:13px 10px;font-size:13px}
 }
-.barra-linha:active{background-color:rgba(110,79,51,.08)}
+.barra-linha:active{background-color:rgba(55,64,71,.08)}
 
 /* =========================================================================
    EFEITOS
@@ -498,6 +602,9 @@ body::after{
      rolar e a aproximacao do fundo, logo acima. */
   html{scroll-behavior:auto}
   .barra{transition:none}
+  /* o ping do CTA nao roda para quem pediu menos movimento. A moldura fixa
+     continua ali: o que some e o anel que pulsa, e nao o acabamento. */
+  .cta::before{animation:none;opacity:0}
   .cta:active,.lista a:active{transform:none}
 }
 
@@ -534,13 +641,13 @@ html{-webkit-text-size-adjust:100%}
 @media (min-width:768px){
   body{
     background:
-      radial-gradient(1100px 640px at 50% 0%, #F3ECE0 0%, var(--areia) 46%, var(--creme) 100%)
+      radial-gradient(1100px 640px at 50% 0%, #FEF7E3 0%, var(--areia) 46%, var(--creme) 100%)
       no-repeat fixed
   }
   .legal{margin-left:-24px;margin-right:-24px;border-radius:0 0 var(--r3) var(--r3)}
   .pagina{
     background:var(--areia);
-    box-shadow:0 40px 90px -40px rgba(36,30,23,.28);
+    box-shadow:0 40px 90px -40px rgba(55,64,71,.33);
     padding-bottom:96px
   }
   /* ARMADILHA, e ela ja custou uma versao inteira: esta regra precisa usar a
@@ -617,7 +724,7 @@ html{-webkit-text-size-adjust:100%}
   background:var(--creme);
   /* filete por dentro: sem ele, foto clara encosta no cartao claro e o
      thumb perde a borda justamente nas tres fotos desta lista. */
-  box-shadow:inset 0 0 0 1px rgba(36,30,23,.09)
+  box-shadow:inset 0 0 0 1px rgba(55,64,71,.106)
 }
 
 /* ---- Prova social ---- */
@@ -637,7 +744,7 @@ html{-webkit-text-size-adjust:100%}
    ========================================================================= */
 .painel{
   position:fixed;inset:0;z-index:100;
-  background:rgba(24,18,13,.94);
+  background:rgba(55,64,71,1);
   -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
   display:flex;align-items:flex-start;justify-content:center;
   padding:16px;overflow-y:auto;-webkit-overflow-scrolling:touch;
@@ -650,34 +757,34 @@ html{-webkit-text-size-adjust:100%}
 .painel-topo{display:flex;justify-content:flex-end;margin-bottom:8px}
 .painel-topo button{
   width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;
-  background:rgba(242,235,223,.16);color:var(--claro-escuro);font-size:19px;line-height:1
+  background:rgba(254,247,227,.16);color:var(--claro-escuro);font-size:19px;line-height:1
 }
 .quadro{
   aspect-ratio:9/16;border-radius:var(--r3);overflow:hidden;position:relative;
-  background:var(--ink);border:1px solid rgba(242,235,223,.22);
+  background:var(--ink);border:1px solid rgba(254,247,227,.22);
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px
 }
 .quadro video{width:100%;height:100%;object-fit:cover;display:block}
 .quadro-marca{
   position:absolute;top:14px;left:0;right:0;text-align:center;
-  font-family:var(--serif);font-style:italic;font-size:16px;color:rgba(242,235,223,.9)
+  font-family:var(--serif);font-style:italic;font-size:16px;color:rgba(254,247,227,.9)
 }
 .quadro-play{
   width:64px;height:64px;border-radius:50%;border:none;cursor:pointer;
-  background:rgba(242,235,223,.94);display:flex;align-items:center;justify-content:center
+  background:rgba(254,247,227,.94);display:flex;align-items:center;justify-content:center
 }
 .quadro-play svg{width:21px;height:21px;margin-left:3px;fill:var(--ink)}
 .quadro p{
   color:var(--claro-escuro2);font-size:12.5px;text-align:center;line-height:1.6;padding:0 26px
 }
 .painel-cta{
-  display:block;margin-top:13px;background:var(--cafe);color:var(--claro-escuro);
+  display:block;margin-top:13px;background:var(--ink);color:var(--claro-escuro);
   text-align:center;font-weight:600;font-size:16px;border-radius:var(--r1);padding:16px
 }
 .painel-menor{
   display:block;margin-top:9px;padding:14px;min-height:44px;
-  background:rgba(242,235,223,.10);color:var(--claro-escuro);
-  border:1px solid rgba(242,235,223,.26);border-radius:var(--r1);
+  background:rgba(254,247,227,.10);color:var(--claro-escuro);
+  border:1px solid rgba(254,247,227,.26);border-radius:var(--r1);
   text-align:center;font-size:13.5px
 }
 
@@ -814,7 +921,7 @@ html{-webkit-text-size-adjust:100%}
     <div class="bloco">
       Rua Benjamin Constant, 2320 &middot; Sala 03<br>
       Escola Agrícola &middot; Blumenau &middot; SC<br>
-      Seg a sex, 9h15 às 19h &middot; Sáb, 9h30 às 13h<br>Domingo, fechado
+      Seg a sex, 8h às 19h &middot; Sáb, 9h30 às 13h<br>Domingo, fechado
     </div>
 
     <div class="bloco linhas">
